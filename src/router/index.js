@@ -3,24 +3,22 @@ import VueRouter from 'vue-router'
 
 const Login = () => import('views/login/Login')
 const Home = () => import('views/home/Home')
+const WelCome = () => import('views/home/children/welcome/WelCome')
+const Users = () => import('views/home/children/users/Users')
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    redirect: '/login'
-  },
-  {
-    path: '/login',
-    component: Login
-  },
+  { path: '/', redirect: '/login' },
+  { path: '/login', component: Login },
   {
     path: '/home',
     component: Home,
-    meta: {
-      title: 'Home'
-    }
+    redirect: '/welcome',
+    children: [
+      { path: '/welcome', name: 'welcome', component: WelCome },
+      { path: '/users', name: 'users', component: Users }
+    ]
   }
 ]
 
@@ -31,7 +29,6 @@ const router = new VueRouter({
 // 定义导航守卫控制权限
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') next()
-
   // 检查用户是否登录
   const tokenStr = window.sessionStorage.getItem('token')
   if (typeof tokenStr === 'undefined') next('/login')
