@@ -28,4 +28,14 @@ const router = new VueRouter({
   routes
 })
 
+// 定义导航守卫控制权限
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') next()
+
+  // 检查用户是否登录
+  const tokenStr = window.sessionStorage.getItem('token')
+  if (typeof tokenStr === 'undefined') next('/login')
+  next()
+})
+
 export default router
