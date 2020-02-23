@@ -23,7 +23,7 @@
          >
            <!-- 一级菜单 -->
            <el-submenu :index="index + ''" v-for="(menu, index) of menuList" :key="menu.id">
-             <template slot="title">
+             <template v-slot:title>
                <!-- 图标 -->
                <i :class="iconsList[menu.id]"></i>
                <!-- 标题 -->
@@ -31,7 +31,7 @@
              </template>
                <!-- 二级菜单 -->
                  <el-menu-item :index="'/' + item.path" v-for="item of menu.children" :key="item.id">
-                   <template slot="title">
+                   <template v-slot:title>
                      <i class="el-icon-menu"></i>
                      <span>{{ item.authName }}</span>
                    </template>

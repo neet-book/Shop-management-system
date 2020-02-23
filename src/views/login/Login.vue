@@ -18,8 +18,7 @@
         <el-form-item prop="password">
           <el-input
             type="password"
-            prefix-icon="iconfont
-            icon-3702mima"
+            prefix-icon="iconfont icon-3702mima"
             v-model="loginForm.password"
             prop="password"
           ></el-input>

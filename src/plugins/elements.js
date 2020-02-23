@@ -20,6 +20,10 @@ import {
   Col,
   Table,
   TableColumn,
+  Switch,
+  Tooltip,
+  pagination,
+  Dialog,
   Message
 } from 'element-ui'
 
@@ -42,6 +46,10 @@ Vue.use(Row)
 Vue.use(Col)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Switch)
+Vue.use(Tooltip)
+Vue.use(pagination)
+Vue.use(Dialog)
 
 // 引入message弹窗不需要通过use方法使用
 Vue.prototype.$message = Message
