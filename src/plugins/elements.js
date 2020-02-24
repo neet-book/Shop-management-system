@@ -24,6 +24,7 @@ import {
   Tooltip,
   pagination,
   Dialog,
+  MessageBox,
   Message
 } from 'element-ui'
 
@@ -53,3 +54,6 @@ Vue.use(Dialog)
 
 // 引入message弹窗不需要通过use方法使用
 Vue.prototype.$message = Message
+
+// 弹框
+Vue.prototype.$confirm = MessageBox.confirm

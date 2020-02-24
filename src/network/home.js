@@ -34,3 +34,18 @@ export function addNewUser (data) {
     data
   })
 }
+
+// 修改用户信息
+export function editUser (params) {
+  return requestAUZ(`users/${params.id}`, {
+    method: 'put',
+    params
+  })
+}
+
+// 删除用户
+export function deleteUser (id) {
+  return requestAUZ(`users/${id}`, {
+    method: 'delete'
+  })
+}
