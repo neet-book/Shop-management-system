@@ -18,8 +18,7 @@
         <el-form-item prop="password">
           <el-input
             type="password"
-            prefix-icon="iconfont
-            icon-3702mima"
+            prefix-icon="iconfont icon-3702mima"
             v-model="loginForm.password"
             prop="password"
           ></el-input>
@@ -60,13 +59,13 @@ export default {
   },
   methods: {
     // 重置表单
-    resetForm () {
+    resetForm() {
       // 通过el-form组件的resetFields方法可以重置表单
       this.$refs.loginFromRef.resetFields()
     },
 
     // 表单提交预验证
-    submitForm () {
+    submitForm() {
       // 通过el-form组件的validate方法能够对表单进行验证
       // 该方法接收一个回调函数作为参数，并向回调函数传入两个参数
       // 第一个参数为布尔值，表示验证是否通过，第二个参数为对象，表示验证不通过对字段
@@ -81,7 +80,7 @@ export default {
 
         // 登录成功
         this.$message.success('登录成功！')
-        window.sessionStorage.setItem(this.loginForm.username, result.data.token) // 存储用户token
+        window.sessionStorage.setItem('token', result.data.token) // 存储用户token
         // 跳转home
         this.$router.push('/home')
       })
