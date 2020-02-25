@@ -10,7 +10,13 @@
       :key="index"
       :prop="key"
       :label="title"
-    ></el-table-column>
+    >
+      <template v-slot:default="scope" v-if="key === 'level'">
+        <el-tag type="success" v-if="scope.row.level === '0'">一级</el-tag>
+        <el-tag type="warning" v-if="scope.row.level === '1'">二级</el-tag>
+        <el-tag type="danger" v-if="scope.row.level === '2'">三级</el-tag>
+      </template>
+    </el-table-column>
   </el-table>
 </template>
 
