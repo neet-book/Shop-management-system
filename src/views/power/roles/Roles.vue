@@ -8,37 +8,40 @@
     </el-breadcrumb>
     <!-- 卡片区域 -->
     <el-card>
-      <table-list-test
-        :tableHead="titles"
-        :tableData="list"
-      >
-        <template v-slot:handle="{ item, itemKey }">
-          <el-tag type="success">{{ item }} {{ itemKey }}</el-tag>
-        </template>
-      </table-list-test>
+      <roles-list
+        :table-head="titles"
+        :table-data="rolesList"
+      ></roles-list>
     </el-card>
   </div>
 </template>
 
 <script>
-import TableListTest from 'components/content/tableList/TableListTest'
+import RolesList from './RolesList/RolesList'
+import { getRolesList } from 'network/rights'
 export default {
   name: 'Roles',
   components: {
-    TableListTest
+    RolesList
   },
   data() {
     return {
       titles: {
-        name: '姓名',
-        number: '学号',
-        handle: '操作'
+        roleName: '角色名称',
+        roleDesc: '角色描述'
       },
-      list: [{
-        name: '姓名',
-        number: '学号',
-        handle: '操作'
-      }]
+      rolesList: []
+    }
+  },
+  created () {
+    this.getRolesList()
+  },
+  methods: {
+    // 获取角色列表
+    async getRolesList() {
+      const { data: re } = await getRolesList()
+      if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
+      this.rolesList = re.data
     }
   }
 }

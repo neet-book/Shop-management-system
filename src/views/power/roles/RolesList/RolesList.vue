@@ -8,15 +8,15 @@
       <!-- 序号 -->
       <el-table-column label="#" type="index"></el-table-column>
       <!-- 表头 -->
-      <template v-for="(head, key) of tableHead">
-        <el-table-column
-          :label="head"
-          :prop="key"
-          :key="key"
-        >
-        </el-table-column>
-        <el-table-column></el-table-column>
-      </template>
+      <el-table-column
+        v-for="(head, key) of tableHead"
+        :label="head"
+        :prop="key"
+        :key="key"
+      >
+      </el-table-column>
+      <el-table-column label="操作">
+      </el-table-column>
     </el-table>
   </div>
 </template>
