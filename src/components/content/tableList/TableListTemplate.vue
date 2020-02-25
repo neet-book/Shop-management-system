@@ -1,0 +1,36 @@
+<template>
+  <div class="table">
+    <el-table
+      :data="tableData"
+      border
+      stripe
+    >
+      <!-- 序号 -->
+      <el-table-column label="#" type="index"></el-table-column>
+      <!-- 表头 -->
+      <template v-for="(head, key) of tableHead">
+        <el-table-column
+          :label="head"
+          :prop="key"
+          :key="key"
+        >
+        </el-table-column>
+      </template>
+    </el-table>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'TableList',
+  props: {
+    tableHead: { type: Object, default() { return {} } },
+    tableData: { type: Array, default() { return [] } }
+  },
+  computed: {}
+}
+</script>
+
+<style scoped>
+
+</style>
