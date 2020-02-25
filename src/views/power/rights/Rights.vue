@@ -9,7 +9,10 @@
     <!-- 卡片视图 -->
     <el-card>
       <!-- 表格区域 -->
-      <right-list></right-list>
+      <right-list
+        :list="rightsList"
+        :titles="listTitles"
+      ></right-list>
     </el-card>
   </div>
 </template>
@@ -22,7 +25,14 @@ export default {
   name: 'Rights',
   data() {
     return {
-      rightsList: []
+      rightsList: [],
+
+      // 配置
+      listTitles: {
+        authName: '权限名称',
+        path: '路径',
+        level: '权限等级'
+      }
     }
   },
   created () {
@@ -33,8 +43,9 @@ export default {
   },
   methods: {
     async getRightsList() {
-      const { data } = await getRightsList()
-      console.log(data)
+      const { data: re } = await getRightsList()
+      if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
+      this.rightsList = re.data
     }
   }
 }
