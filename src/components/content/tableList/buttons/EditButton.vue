@@ -3,7 +3,9 @@
     <!-- 修改用户按钮 -->
     <el-tooltip effect="dark" content="修改" placement="top-start"  enterable >
       <!-- 修改按钮 -->
-      <el-button type="primary" icon="el-icon-edit" size="mini" @click="dialogVisible = true"></el-button>
+      <el-button type="primary" icon="el-icon-edit" size="mini" @click="dialogVisible = true">
+        <slot></slot>
+      </el-button>
     </el-tooltip>
     <!-- 修改用户信息对话框 -->
     <el-dialog

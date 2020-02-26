@@ -11,6 +11,7 @@
       <roles-list
         :table-head="titles"
         :table-data="rolesList"
+        @update-liset="updateList"
       ></roles-list>
     </el-card>
   </div>
@@ -42,6 +43,11 @@ export default {
       const { data: re } = await getRolesList()
       if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
       this.rolesList = re.data
+    },
+
+    // 表格执行操作时更新表格
+    updateList() {
+      this.getRolesList()
     }
   }
 }

@@ -31,10 +31,7 @@
         <el-table-column  label="操作" v-else-if="key === 'handle'" :key="key">
           <template v-slot:default="scope">
             <!-- 修改 -->
-            <edit-botton :user-info="scope.row" @submit-edit="$emit('edit', $event)"></edit-botton>
-            <el-tooltip  effect="dark" content="删除" placement="top-start" enterable>
-              <el-button type="danger" icon="el-icon-delete" size="mini" @click="$emit('delete', scope.row)"></el-button>
-            </el-tooltip>
+           <handle-button-sets :target="scope.row" @handled="$emit('update-list')"></handle-button-sets>
           </template>
         </el-table-column>
       </template>
@@ -43,10 +40,10 @@
 </template>
 
 <script>
-import EditBotton from './buttons/EditBotton'
+import HandleButtonSets from './buttons/handleButtonSets/HandleButtonSets'
 export default {
   name: 'TableList',
-  components: { EditBotton },
+  components: { HandleButtonSets },
   props: {
     tableHead: { type: Object, default() { return {} } },
     tableData: { type: Array, default() { return [] } }

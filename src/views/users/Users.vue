@@ -18,7 +18,7 @@
         </el-col>
         <!-- 添加用户 -->
         <el-col :span="4">
-          <add-user-dialog @add-user="addUser"></add-user-dialog>
+          <add-user-dialog @update-list="updateList"></add-user-dialog>
         </el-col>
       </el-row>
       <!-- 表格区域 -->
@@ -26,8 +26,7 @@
         :tableHead="tableHead"
         :tableData="userList"
         @state-change="userStateChange"
-        @edit="editUser"
-        @delete="deleteUser"
+        @update-list="updateList"
         class="table"
       ></table-list>
       <!-- 分页功能 -->
@@ -45,7 +44,7 @@
 </template>
 
 <script>
-import { getUserList, changeUserState, addNewUser, editUser, deleteUser } from '@/network/home'
+import { getUserList, changeUserState } from '@/network/home'
 
 import TableList from 'components/content/tableList/TableList'
 import AddUserDialog from 'components/content/AddUserDialog'
@@ -137,44 +136,9 @@ export default {
       this.getUserList()
     },
 
-    // 添加新用户
-    async addUser(userInfo) {
-      try {
-        const { data } = await addNewUser(userInfo)
-        console.log(data)
-        if (data.meta.status !== 201) return this.$message.error(data.meta.msg)
-        this.$message.success('添加成功')
-        this.getUserList()
-      } catch (e) {
-        console.log(e)
-      }
-    },
-
-    // 修改用户
-    async editUser(newUserInfo) {
-      const { data } = await editUser(newUserInfo)
-      if (data.meta.status !== 200) return this.$message.error(data.meta.msg)
-      this.$message.success('用户信息修改成功')
+    // 表格执行操作时更新表格
+    updateList() {
       this.getUserList()
-    },
-
-    // 删除用户
-    deleteUser(userInfo) {
-      this.$confirm(`此操作将永久删除 ${userInfo.username} ，是否继续？`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(async () => {
-          const { data: re } = await deleteUser(userInfo.id)
-          console.log(re)
-          if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
-          this.$message.success('删除成功')
-          this.getUserList()
-        })
-        .catch(() => {
-          this.$message.info('取消操作')
-        })
     },
     /**
      * 事件监听

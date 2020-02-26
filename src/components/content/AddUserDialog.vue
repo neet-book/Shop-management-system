@@ -32,6 +32,7 @@
 
 <script>
 import { userValidateMix } from '../../common/mixin'
+import { addNewUser } from '../../network/home'
 
 export default {
   name: 'AddUserDialog',
@@ -55,9 +56,11 @@ export default {
     submitUserInfo() {
       this.$refs.addUserForm.validate((result) => {
         if (result) {
-          this.$emit('add-user', this.newUserInfo)
+          // 验证成功
+          this.addUser(this.newUserInfo)
           this.dialogVisible = false
         } else {
+          // 验证失败
           this.$message.error('请正确输入用户信息')
         }
       })
@@ -67,6 +70,22 @@ export default {
     handleClose() {
       this.$refs.addUserForm.resetFields()
       this.dialogVisible = false
+    },
+
+    // 添加新用户
+    async addUser(userInfo) {
+      try {
+        const { data } = await addNewUser(userInfo)
+        console.log(data)
+        if (data.meta.status !== 201) return this.$message.error(data.meta.msg)
+        this.$message.success('添加成功')
+        this.$refs.addUserForm.resetFields()
+
+        // 发出事件更新列表
+        this.$emit('update-list')
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
