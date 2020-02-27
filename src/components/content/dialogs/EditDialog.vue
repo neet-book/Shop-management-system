@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { userValidateMix } from '../../../../common/mixin'
+import { userValidateMix } from '../../../common/mixin'
 
 export default {
   name: 'EditDialog',

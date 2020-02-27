@@ -2,37 +2,38 @@
   <div class="expand-content">
     <el-row
       type="success"
-      v-for="(roles1, index) of rightsTree"
-      :key="roles1.id"
+      v-for="(rights1, index) of rightsTree"
+      :key="rights1.id"
       :class="{ 'bm-border': true, 'top-border': index === 0 }"
       class="vcenter"
     >
       <!-- 渲染一级权限 -->
       <el-col :span="5">
-        <el-tag closable>{{ roles1.authName }}</el-tag><i class="el-icon-caret-right"></i>
+        <el-tag closable>{{ rights1.authName }}</el-tag><i class="el-icon-caret-right"></i>
       </el-col>
       <!-- 渲染二级,三级权限 -->
       <el-col :span="19">
         <!-- 循环渲染二级权限 -->
         <el-row
           type="success"
-          v-for="(roles2, indey) of roles1.children"
-          :key="roles2.id"
+          v-for="(rights2, indey) of rights1.children"
+          :key="rights2.id"
           :class="{ 'top-border': indey !== 0}"
           class="vcenter"
         >
           <el-col :span="6">
-            <el-tag type="warning" closable>{{ roles2.authName }}</el-tag><i class="el-icon-caret-right"></i>
+            <el-tag type="warning" closable>{{ rights2.authName }}</el-tag><i class="el-icon-caret-right"></i>
           </el-col>
           <!-- 渲染三级权限 -->
           <el-col :span="18">
             <el-col>
               <el-tag
                 type="danger"
-                v-for="roles3 of roles2.children"
-                :key="roles3.id"
+                v-for="rights3 of rights2.children"
+                :key="rights3.id"
+                @close="closeTag(rights3)"
                 closable
-              >{{ roles3.authName }}</el-tag>
+              >{{ rights3.authName }}</el-tag>
             </el-col>
           </el-col>
         </el-row>
@@ -44,9 +45,24 @@
 <script>
 export default {
   name: 'RightsExpand',
+  data() {
+    return {
+      rightsTree: this.role.children
+    }
+  },
   props: {
-    rightsTree: Array,
-    default() { return [] }
+    role: Object,
+    default() { return {} }
+  },
+  methods: {
+    closeTag(right) {
+      const deletedRight = {
+        roleId: this.role.id,
+        rightId: right.id
+      }
+
+      this.$emit('close-tag', deletedRight)
+    }
   }
 }
 </script>
