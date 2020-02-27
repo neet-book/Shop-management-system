@@ -11,7 +11,7 @@
       <roles-list
         :table-head="titles"
         :table-data="rolesList"
-        @update-liset="updateList"
+        @update-list="updateList"
       ></roles-list>
     </el-card>
   </div>
@@ -47,6 +47,7 @@ export default {
 
     // 表格执行操作时更新表格
     updateList() {
+      console.log(11)
       this.getRolesList()
     }
   }

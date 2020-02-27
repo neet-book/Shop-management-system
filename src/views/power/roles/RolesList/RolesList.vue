@@ -9,7 +9,7 @@
       <el-table-column type="expand">
         <!-- 权限展示 -->
         <template v-slot:default="scope">
-          <rights-expand :role="scope.row"></rights-expand>
+          <rights-expand :role="scope.row" @tag-closs="updateList"></rights-expand>
         </template>
       </el-table-column>
       <!-- 序号 -->
@@ -25,15 +25,7 @@
       <el-table-column label="操作" width="330px">
         <template v-slot:default="scope">
           <!-- 操作按钮组 -->
-          <handle-button-sets
-            :target="scope.row"
-            @handled="$emit('update-list')"
-            editTitle="修改"
-            deleteTitle="删除"
-            settingTitle="权限设置"
-          >
-            <template v-slot:edit-btn><edit-role-button :role-info="scope.row"></edit-role-button></template>
-          </handle-button-sets>
+          <handle-role-button-sets :role="scope.row" @click="updateList"></handle-role-button-sets>
         </template>
       </el-table-column>
     </el-table>
@@ -42,21 +34,22 @@
 
 <script>
 import RightsExpand from './RightsExpand'
-import EditRoleButton from 'components/content/tableList/buttons/EditRoleButton'
-import HandleButtonSets from 'components/content/tableList/buttons/buttonSets/HandleButtonSets'
+import HandleRoleButtonSets from 'components/content/tableList/buttons/buttonSets/HandleRoleButtonSets'
 
 export default {
   name: 'RolesList',
   components: {
-    HandleButtonSets,
+    HandleRoleButtonSets,
     RightsExpand,
-    EditRoleButton
   },
   props: {
     tableHead: { type: Object, default() { return {} } },
     tableData: { type: Array, default() { return [] } }
   },
   methods: {
+    updateList() {
+      this.$emit('update-list')
+    }
   }
 }
 </script>

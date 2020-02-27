@@ -16,3 +16,9 @@ export function editRole(data) {
     data
   })
 }
+
+export function deleteRole(id) {
+  return requestAUZ(`roles/${id}`, {
+    method: 'delete'
+  })
+}

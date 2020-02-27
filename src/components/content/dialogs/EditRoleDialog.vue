@@ -75,9 +75,10 @@ export default {
         if (!validated) return this.$message.error('请输入正确的角色信息')
         // 符合
         const roleCopy = { ...this.role }
+        // 提交修改信息
         this.$emit('submit', roleCopy)
+        // 重置表单
         this.$refs.roleForm.resetFields()
-        console.log(this.roleInfo)
       })
     }
   }
