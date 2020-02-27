@@ -18,17 +18,17 @@
         </el-col>
         <!-- 添加用户 -->
         <el-col :span="4">
-          <add-user-dialog @update-list="updateList"></add-user-dialog>
+          <add-user-button @update-list="updateList"></add-user-button>
         </el-col>
       </el-row>
       <!-- 表格区域 -->
-      <table-list
+      <user-list
         :tableHead="tableHead"
         :tableData="userList"
         @state-change="userStateChange"
         @update-list="updateList"
         class="table"
-      ></table-list>
+      ></user-list>
       <!-- 分页功能 -->
       <el-pagination
         @size-change="handleSizeChange"
@@ -46,8 +46,8 @@
 <script>
 import { getUserList, changeUserState } from '@/network/home'
 
-import TableList from 'components/content/tableList/TableList'
-import AddUserDialog from 'components/content/AddUserDialog'
+import UserList from 'components/content/tables/UserList'
+import AddUserButton from 'components/content/buttons/userButtons/AddUserButton'
 
 export default {
   name: 'Users',
@@ -55,8 +55,8 @@ export default {
     this.getUserList()
   },
   components: {
-    AddUserDialog,
-    TableList
+    AddUserButton,
+    UserList
   },
   data() {
     return {

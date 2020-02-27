@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import EditButton from '../EditUserButton'
+import EditButton from '../userButtons/EditUserButton'
 import { editUser, deleteUser } from 'network/home'
 
 export default {

@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import HandleButtonSets from './buttons/buttonSets/HandleButtonSets'
+import HandleButtonSets from '../buttons/buttonSets/HandleButtonSets'
 export default {
   name: 'TableList',
   components: { HandleButtonSets },

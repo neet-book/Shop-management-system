@@ -38,7 +38,7 @@
 import { userValidateMix } from '../../../common/mixin'
 
 export default {
-  name: 'EditDialog',
+  name: 'EditUserDialog',
   // 混入表单验证规则
   mixins: userValidateMix,
   data() {

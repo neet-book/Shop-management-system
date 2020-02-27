@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { deletedRight } from '@/network/rights'
+import { deleteRight } from '@/network/rights'
 export default {
   name: 'RightsExpand',
   data() {
@@ -63,8 +63,8 @@ export default {
       }
       // 删除权限
       const { data: re } = await deleteRight(deletedRight)
-      
-      if (data.meta.status !== 200) return this.$message.error(re.meta.msg)
+
+      if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
       this.$message.sucess('删除成功')
       this.$emit('close-tag')
     }

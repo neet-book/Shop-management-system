@@ -34,13 +34,13 @@
 
 <script>
 import RightsExpand from './RightsExpand'
-import HandleRoleButtonSets from 'components/content/tableList/buttons/buttonSets/HandleRoleButtonSets'
+import HandleRoleButtonSets from 'components/content/buttons/buttonSets/HandleRoleButtonSets'
 
 export default {
   name: 'RolesList',
   components: {
     HandleRoleButtonSets,
-    RightsExpand,
+    RightsExpand
   },
   props: {
     tableHead: { type: Object, default() { return {} } },

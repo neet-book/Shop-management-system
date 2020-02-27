@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import RolesList from './RolesList/RolesList'
+import RolesList from 'components/content/tables/rolesList/RolesList'
 import { getRolesList } from 'network/rights'
 export default {
   name: 'Roles',
