@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import RightList from './RightsList/RightList'
+import RightList from '../../../components/content/tables/RightList'
 import { getRightsList } from 'network/rights'
 
 export default {

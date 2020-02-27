@@ -29,5 +29,7 @@ export function deleteRole(id) {
 
 // 删除权限
 export function deleteRight (roleID, rightID) {
-  return requestAUZ(`roles/${roleID}/${rightID}`)
+  return requestAUZ(`roles/${roleID}/rights/${rightID}`, {
+    method: 'delete'
+  })
 }

@@ -9,7 +9,7 @@
     >
       <!-- 渲染一级权限 -->
       <el-col :span="5">
-        <el-tag closable>{{ rights1.authName }}</el-tag><i class="el-icon-caret-right"></i>
+        <el-tag closable @close="closeTag(rights1)">{{ rights1.authName }}</el-tag><i class="el-icon-caret-right"></i>
       </el-col>
       <!-- 渲染二级,三级权限 -->
       <el-col :span="19">
@@ -22,7 +22,7 @@
           class="vcenter"
         >
           <el-col :span="6">
-            <el-tag type="warning" closable>{{ rights2.authName }}</el-tag><i class="el-icon-caret-right"></i>
+            <el-tag type="warning" closable @close="closeTag(rights2)">{{ rights2.authName }}</el-tag><i class="el-icon-caret-right"></i>
           </el-col>
           <!-- 渲染三级权限 -->
           <el-col :span="18">
@@ -56,24 +56,41 @@ export default {
     default() { return {} }
   },
   methods: {
-    async closeTag(right) {
-      const deletedRight = {
-        roleId: this.role.id,
-        rightId: right.id
-      }
+    closeTag(right) {
       // 删除权限
-      const { data: re } = await deleteRight(deletedRight)
-
-      if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
-      this.$message.sucess('删除成功')
-      this.$emit('close-tag')
+      this.$confirm('是否删除该权限', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(async () => {
+          const { data: re } = await deleteRight(this.role.id, right.id)
+          if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
+          this.$message.success('删除成功')
+          // 刷新权限
+          this.rightsTree = re.data
+          this.$emit('tag-close')
+        })
+        .catch(() => {
+          this.$message.info('取消删除')
+        })
     }
   }
 }
 </script>
 
 <style scoped>
-.expand-content {
-  display: inline-block;
-}
+  .el-tag {
+    margin: 7px;
+  }
+  .top-border {
+    border-top: #eee 1px solid;
+  }
+  .bm-border {
+    border-bottom: #eee 1px solid;
+  }
+  .vcenter {
+    display: flex;
+    align-items: center;
+  }
 </style>

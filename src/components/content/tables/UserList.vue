@@ -31,7 +31,7 @@
         <el-table-column  label="操作" v-else-if="key === 'handle'" :key="key">
           <template v-slot:default="scope">
             <!-- 修改 -->
-           <handle-button-sets :target="scope.row" @handled="$emit('update-list')"></handle-button-sets>
+           <handle-button-sets :target="scope.row" @handle="$emit('update-list')"></handle-button-sets>
           </template>
         </el-table-column>
       </template>

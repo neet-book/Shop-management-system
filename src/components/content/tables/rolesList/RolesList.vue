@@ -9,7 +9,7 @@
       <el-table-column type="expand">
         <!-- 权限展示 -->
         <template v-slot:default="scope">
-          <rights-expand :role="scope.row" @tag-closs="updateList"></rights-expand>
+          <rights-expand :role="scope.row"></rights-expand>
         </template>
       </el-table-column>
       <!-- 序号 -->
