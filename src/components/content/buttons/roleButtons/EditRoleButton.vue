@@ -43,6 +43,6 @@ export default {
 <style scoped>
 .edit-role-button {
   display: inline-block;
-  margin: 10px;
+  padding: 0 5px;
 }
 </style>

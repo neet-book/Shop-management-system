@@ -5,16 +5,20 @@
     <!-- 删除按钮 -->
     <delete-role-button :role="role" @delete="deleteRole" title="删除角色"></delete-role-button>
     <!-- 设置按钮 -->
+    <setting-right-button :role="role" @setting="SettingRight" title="设置权限"></setting-right-button>
   </div>
 </template>
 
 <script>
 import EditRoleButton from '../roleButtons/EditRoleButton'
 import DeleteRoleButton from '../roleButtons/DeleteRoleButton'
-import { editRole, deleteRole } from '@/network/rights'
+import SettingRightButton from '../roleButtons/SettingRightButton'
+
+import { editRole, deleteRole, setRoleRight } from '@/network/rights'
 export default {
   name: 'HandleRoleButtonSets',
   components: {
+    SettingRightButton,
     EditRoleButton,
     DeleteRoleButton
   },
@@ -47,6 +51,17 @@ export default {
 
       if (re.meta.status !== 200) return this.$message(re.meta.msg)
       this.$message.success('删除成功')
+      this.click()
+    },
+
+    // 设置角色权限
+    async SettingRight(ridsStr) {
+      // 提交修改请求
+      const { data: re } = await setRoleRight(this.role.id, ridsStr)
+      // 失败
+      if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
+      // 成功
+      this.$message.success('权限修改成功')
       this.click()
     }
   }

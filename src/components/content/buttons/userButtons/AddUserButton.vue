@@ -39,5 +39,6 @@ export default {
 <style scoped>
 .add-user-btn {
   display: inline-block;
+  padding: 0 5px;
 }
 </style>

@@ -1,9 +1,11 @@
 <template>
-  <el-tooltip :content="title ? title : '删除'" placement="top" enterable>
-    <el-button @click="deleteRole" icon="el-icon-delete" type="danger" size="mini">
-      <span v-if="title">{{ title }}</span>
-    </el-button>
-  </el-tooltip>
+  <div class="delete-role-btn">
+    <el-tooltip :content="title ? title : '删除'" placement="top" enterable>
+      <el-button @click="deleteRole" icon="el-icon-delete" type="danger" size="mini">
+        <span v-if="title">{{ title }}</span>
+      </el-button>
+    </el-tooltip>
+  </div>
 </template>
 
 <script>
@@ -36,5 +38,8 @@ export default {
 </script>
 
 <style scope>
-
+.delete-role-btn {
+  display: inline-block;
+  padding: 0 5px;
+}
 </style>

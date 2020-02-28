@@ -22,7 +22,7 @@
         :key="key"
       >
       </el-table-column>
-      <el-table-column label="操作" width="330px">
+      <el-table-column label="操作" width="350px">
         <template v-slot:default="scope">
           <!-- 操作按钮组 -->
           <handle-role-button-sets :role="scope.row" @click="updateList"></handle-role-button-sets>

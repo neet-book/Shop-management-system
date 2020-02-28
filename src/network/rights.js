@@ -33,3 +33,13 @@ export function deleteRight (roleID, rightID) {
     method: 'delete'
   })
 }
+
+// 添加角色权限
+export function setRoleRight (id, rids) {
+  return requestAUZ(`roles/${id}/rights`, {
+    method: 'post',
+    data: {
+      rids
+    }
+  })
+}
