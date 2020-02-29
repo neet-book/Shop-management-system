@@ -21,15 +21,17 @@
       <el-tag v-else type="warning" size="mini">三级</el-tag>
     </template>
     <!-- 操作按钮 -->
-    <template v-slot:handle="{ row }">
-      {{ row['cat_id'] }}
+    <template v-slot:handle>
+      <delete-button></delete-button>
     </template>
   </tree-table>
 </template>
 
 <script>
+import DeleteButton from 'components/common/buttons/DeleteButton'
 export default {
   name: 'CateList',
+  components: { DeleteButton },
   props: {
     cateList: {
       type: Array,
