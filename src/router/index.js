@@ -7,6 +7,7 @@ const WelCome = () => import('views/home/children/welcome/WelCome')
 const Users = () => import('views/users/Users')
 const Rights = () => import('views/power/rights/Rights')
 const Roles = () => import('views/power/roles/Roles')
+const GoodsCategory = () => import('views/categories/GoodsCategory')
 
 Vue.use(VueRouter)
 
@@ -18,10 +19,16 @@ const routes = [
     component: Home,
     redirect: '/welcome',
     children: [
+      // 欢迎页
       { path: '/welcome', name: 'welcome', component: WelCome },
+      // 用户列表
       { path: '/users', name: 'users', component: Users },
+      // 权限列表
       { path: '/rights', name: 'rights', component: Rights },
-      { path: '/roles', name: 'roles', component: Roles }
+      // 角色列表
+      { path: '/roles', name: 'roles', component: Roles },
+      // 商品分类列表
+      { path: '/categories', name: 'category', component: GoodsCategory }
     ]
   }
 ]

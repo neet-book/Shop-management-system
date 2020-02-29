@@ -59,6 +59,7 @@ Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Option)
 Vue.use(Select)
+
 // 引入message弹窗不需要通过use方法使用
 Vue.prototype.$message = Message
 
