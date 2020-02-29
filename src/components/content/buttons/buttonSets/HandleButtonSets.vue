@@ -18,22 +18,21 @@
     </slot>
     <!-- 设置 -->
     <slot name="setting-btn">
-      <el-tooltip  effect="dark" :content="settingTitle ? settingTitle : '设置'" placement="top" enterable>
-        <el-button type="warning" icon="el-icon-setting" size="mini" >
-          <span v-if="settingTitle">{{ settingTitle }}</span>
-        </el-button>
-      </el-tooltip>
+      <setting-user-button :user="target" @setting="changeUserRole"></setting-user-button>
     </slot>
   </div>
 </template>
 
 <script>
 import EditButton from '../userButtons/EditUserButton'
-import { editUser, deleteUser } from 'network/home'
+import SettingUserButton from '../userButtons/SettingUserButton'
+
+import { editUser, deleteUser, setUserRole } from 'network/home'
 
 export default {
   name: 'HandleButtonSets',
   components: {
+    SettingUserButton,
     EditButton
   },
   props: {
@@ -54,6 +53,7 @@ export default {
       const { data } = await editUser(newUserInfo)
       if (data.meta.status !== 200) return this.$message.error(data.meta.msg)
       this.$message.success('用户信息修改成功')
+      // 刷新列表
       this.$emit('handled')
     },
 
@@ -69,11 +69,22 @@ export default {
           console.log(re)
           if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
           this.$message.success('删除成功')
+          // 刷新列表
           this.$emit('handled')
         })
         .catch(() => {
           this.$message.info('取消操作')
         })
+    },
+
+    // 设置用户角色
+    async changeUserRole(ID) {
+      const { data: re } = await setUserRole(...ID)
+      console.log(re, ID)
+      if (re.meta.status !== 200) return this.$message.error(re.meta.message)
+      this.$message.success('设置成功')
+      // 刷新列表
+      this.$emit('handled')
     }
   }
 }

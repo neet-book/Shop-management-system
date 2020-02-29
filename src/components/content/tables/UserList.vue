@@ -28,9 +28,9 @@
           </template>
         </el-table-column>
         <!-- 修改 -->
-        <el-table-column  label="操作" v-else-if="key === 'handle'" :key="key">
+        <el-table-column  label="操作" v-else-if="key === 'handle'" :key="key" width="200px">
           <template v-slot:default="scope">
-            <!-- 修改 -->
+            <!-- 修改按钮 -->
            <handle-button-sets :target="scope.row" @handle="$emit('update-list')"></handle-button-sets>
           </template>
         </el-table-column>
@@ -41,14 +41,36 @@
 
 <script>
 import HandleButtonSets from '../buttons/buttonSets/HandleButtonSets'
+
+import { UPDATE_ROLE_LIST } from '@/store/mutation.type'
+import { getRolesList } from '@/network/rights'
+
 export default {
   name: 'TableList',
   components: { HandleButtonSets },
+  created () {
+    this.getRolesList()
+  },
+  data() {
+    return {
+      rolesList: []
+    }
+  },
   props: {
+    // 表头
     tableHead: { type: Object, default() { return {} } },
+    // 表格数据
     tableData: { type: Array, default() { return [] } }
   },
-  computed: {}
+  methods: {
+    // 请求角色列表
+    async getRolesList() {
+      const { data: re } = await getRolesList()
+
+      if (re.meta.status !== 200) return console.log('角色列表获取失败: ' + re.meta.msg)
+      this.$store.commit(UPDATE_ROLE_LIST, re.data)
+    }
+  }
 }
 </script>
 

@@ -23,8 +23,9 @@
       </el-row>
       <!-- 表格区域 -->
       <user-list
-        :tableHead="tableHead"
-        :tableData="userList"
+        :table-head="tableHead"
+        :table-data="userList"
+        :role-list="rolesList"
         @state-change="userStateChange"
         @update-list="updateList"
         class="table"
@@ -71,15 +72,16 @@ export default {
 
       // 数据
       userList: [], // 列表项
+      rolesList: [], // 角色列表
       total: 0,
       page: 1,
 
-      // 配置
+      // 列表配置
       tableHead: {
         username: '账号',
         email: '邮箱',
         mobile: '电话',
-        role_name: '类型',
+        role_name: '角色',
         status: '状态',
         handle: '操作'
       }
@@ -99,7 +101,6 @@ export default {
       this.page = re.data.pagenum
       this.total = re.data.total
     },
-
     /**
      *  功能
      */

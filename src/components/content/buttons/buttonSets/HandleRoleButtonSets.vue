@@ -13,7 +13,6 @@
 import EditRoleButton from '../roleButtons/EditRoleButton'
 import DeleteRoleButton from '../roleButtons/DeleteRoleButton'
 import SettingRightButton from '../roleButtons/SettingRightButton'
-
 import { editRole, deleteRole, setRoleRight } from '@/network/rights'
 export default {
   name: 'HandleRoleButtonSets',

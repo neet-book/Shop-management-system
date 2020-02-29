@@ -1,1 +1,2 @@
-export const SET_RIGHTS_TREE = 'setRightsTree'
+export const UPDATE_RIGHTS_TREE = 'updateRightsTree'
+export const UPDATE_ROLE_LIST = 'updateRoleList'

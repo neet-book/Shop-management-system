@@ -49,3 +49,13 @@ export function deleteUser (id) {
     method: 'delete'
   })
 }
+
+// 设置用户角色
+export function setUserRole (userID, roleID) {
+  return requestAUZ(`users/${userID}/role`, {
+    method: 'put',
+    data: {
+      rid: roleID
+    }
+  })
+}
