@@ -105,7 +105,6 @@ export default {
           this.newCate.cat_pid = level === 0 ? 0 : this.selectKeys[level - 1]
           // 触发提交事件
           const cateCopy = { ...this.newCate }
-          console.log(cateCopy)
           this.$emit('submit', cateCopy)
           this.beforeClose()
         } else {

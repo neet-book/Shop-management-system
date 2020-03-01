@@ -13,13 +13,13 @@
       <add-category-button :option-list="selectOptions" @submit="addCate"></add-category-button>
     </div>
     <!-- 分类列表 -->
-      <cate-list :cate-list="cateList" @delete-cate="deleteCate"></cate-list>
+      <cate-list :cate-list="cateList" @delete-cate="deleteCate" @edit-cate="editCate"></cate-list>
     </el-card>
   </div>
 </template>
 
 <script>
-import { getCategroiesList, addNewCate, deleteCate } from '@/network/categories'
+import { getCategroiesList, addNewCate, deleteCate, editCate } from '@/network/categories'
 import { UPDATE_CATE_LIST } from '@/store/mutation.type'
 
 import CateList from './children/CateList'
@@ -75,6 +75,15 @@ export default {
       const { data: re } = await deleteCate(cate.cat_id)
       if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
       this.$message.success('删除成功')
+      // 刷新分类列表
+      this.getCategoriesList()
+    },
+
+    // 修改分类
+    async editCate(cate) {
+      const { data: re } = await editCate(cate.id, cate.name)
+      if (re.meta.status !== 200) return this.$message.error(re.meta.msg)
+      this.$message.success('修改成功')
       // 刷新分类列表
       this.getCategoriesList()
     }

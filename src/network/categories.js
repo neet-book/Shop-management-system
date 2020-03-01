@@ -22,3 +22,13 @@ export function deleteCate(id) {
     method: 'delete'
   })
 }
+
+// 编辑分类
+export function editCate(id, name) {
+  return requestAUZ(`categories/${id}`, {
+    method: 'put',
+    data: {
+      cat_name: name
+    }
+  })
+}
