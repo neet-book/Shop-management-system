@@ -21,8 +21,8 @@
       <el-tag v-else type="warning" size="mini">三级</el-tag>
     </template>
     <!-- 操作按钮 -->
-    <template v-slot:handle>
-      <delete-button></delete-button>
+    <template v-slot:handle="{ row }">
+      <delete-button @delete="$emit('delete-cate', row)"></delete-button>
     </template>
   </tree-table>
 </template>
@@ -32,14 +32,6 @@ import DeleteButton from 'components/common/buttons/DeleteButton'
 export default {
   name: 'CateList',
   components: { DeleteButton },
-  props: {
-    cateList: {
-      type: Array,
-      default() {
-        return []
-      }
-    }
-  },
   data() {
     return {
       // 表格每列的配置
@@ -66,6 +58,11 @@ export default {
           template: 'handle'
         }
       ]
+    }
+  },
+  computed: {
+    cateList() {
+      return this.$store.state.cateList
     }
   }
 }

@@ -15,3 +15,10 @@ export function addNewCate(data) {
     data
   })
 }
+
+// 删除分类
+export function deleteCate(id) {
+  return requestAUZ(`categories/${id}`, {
+    method: 'delete'
+  })
+}

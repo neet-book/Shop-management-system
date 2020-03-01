@@ -28,6 +28,7 @@ import {
   Tree,
   Option,
   Select,
+  Cascader,
   MessageBox,
   Message
 } from 'element-ui'
@@ -59,6 +60,7 @@ Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Option)
 Vue.use(Select)
+Vue.use(Cascader)
 
 // 引入message弹窗不需要通过use方法使用
 Vue.prototype.$message = Message

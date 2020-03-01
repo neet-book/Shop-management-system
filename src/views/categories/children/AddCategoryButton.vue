@@ -23,21 +23,21 @@
           </el-form-item>
           <!-- 父级分类选择框 -->
           <el-form-item label="父级分类" prop="cat_pid">
-            <el-select v-model="newCate.cat_pid" placeholder="请选择父级分类" size="mini">
-              <el-option
-                v-for="item in optionList"
-                :key="item.cat_id"
-                :label="item.cat_name"
-                :value="item.cat_id">
-              </el-option>
-            </el-select>
+            <el-cascader
+              v-model="selectKeys"
+              :options="optionList"
+              :props="selectProps"
+              @change="handleChange"
+              clearable
+              ref="cateSelectRef"
+              ></el-cascader>
           </el-form-item>
         </el-form>
 
       </template>
       <!-- 按钮区域 -->
       <template v-slot:footer>
-        <el-button @click="beforeClose" size="small">取 消</el-button>
+        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
         <el-button type="primary" @click="submit" size="small">确 定</el-button>
       </template>
     </el-dialog>
@@ -61,11 +61,17 @@ export default {
         cat_name: [
           { required: true, message: '请输入分类名称', trigger: 'blur' },
           { max: 10, min: 1, message: '分类名称请在10个字符内', trigger: 'blur' }
-        ],
-        cat_pid: [
-          { required: true, message: '请选择父类分类', trigger: 'blur' }
         ]
-      }
+      },
+      // 级连选择器配置
+      selectProps: {
+        expandTrigger: 'click',
+        checkStrictly: true,
+        value: 'cat_id',
+        label: 'cat_name'
+      },
+      // 选中的父级分类
+      selectKeys: []
     }
   },
   props: {
@@ -86,25 +92,31 @@ export default {
     beforeClose() {
       this.dialogVisible = false
       this.$refs.addCateFromRef.resetFields()
+      this.selectKeys = []
     },
     // 提交新分类
     submit() {
       this.$refs.addCateFromRef.validate(valid => {
         if (valid) {
-          // 获得父级分类
-          let parentCate = this.optionList.filter(item => {
-            return item.cat_id === this.newCate.cat_pid
-          })
-          // 设置新分类等级
-          this.newCate.cat_level = parentCate[0].cat_level + 1
+          // 设置等级
+          let level = this.selectKeys.length
+          this.newCate.cat_level = level
+          // 设置父类ID
+          this.newCate.cat_pid = level === 0 ? 0 : this.selectKeys[level - 1]
           // 触发提交事件
           const cateCopy = { ...this.newCate }
+          console.log(cateCopy)
           this.$emit('submit', cateCopy)
           this.beforeClose()
         } else {
           this.$message.error('请输入正确内容')
         }
       })
+    },
+    handleChange() {
+      // 保存选中的父节点
+      // console.log(value)
+      console.log(this.selectKeys)
     }
   }
 }
