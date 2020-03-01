@@ -124,6 +124,6 @@ export default {
 <style scoped>
 .add-cate-btn {
   display: inline-block;
-  padding: 10px 0px;
+  padding-bottom: 10px;
 }
 </style>

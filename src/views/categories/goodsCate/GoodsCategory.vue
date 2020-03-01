@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getCategroiesList, addNewCate, deleteCate, editCate } from '@/network/categories'
+import { getCategroiesList, addNewCate, deleteCate, editCate } from '@/network/goodsCate'
 import { UPDATE_CATE_LIST } from '@/store/mutation.type'
 
 import CateList from './children/CateList'
@@ -63,7 +63,6 @@ export default {
     // 添加新分类
     async addCate(newCate) {
       const { data: re } = await addNewCate(newCate)
-      console.log(re)
       if (re.meta.status !== 201) return this.$message.error(re.meta.msg)
       this.$message.success('添加成功！')
       // 刷新分类列表

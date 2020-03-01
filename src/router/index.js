@@ -7,7 +7,8 @@ const WelCome = () => import('views/home/children/welcome/WelCome')
 const Users = () => import('views/users/Users')
 const Rights = () => import('views/power/rights/Rights')
 const Roles = () => import('views/power/roles/Roles')
-const GoodsCategory = () => import('views/categories/GoodsCategory')
+const GoodsCategory = () => import('views/categories/goodsCate/GoodsCategory')
+const GoodsParams = () => import('views/categories/goodsParams/GoodsParams')
 
 Vue.use(VueRouter)
 
@@ -28,7 +29,9 @@ const routes = [
       // 角色列表
       { path: '/roles', name: 'roles', component: Roles },
       // 商品分类列表
-      { path: '/categories', name: 'category', component: GoodsCategory }
+      { path: '/categories', name: 'category', component: GoodsCategory },
+      // 商品参数管理
+      { path: '/params', name: 'params', component: GoodsParams }
     ]
   }
 ]
