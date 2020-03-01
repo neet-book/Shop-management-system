@@ -15,7 +15,7 @@
           label-width="100px"
           :model="newCate"
           :rules="cateValidate"
-          ref="cateFormRef"
+          ref="addCateFromRef"
         >
           <!-- 分类名称输入框 -->
           <el-form-item label="分类名称" prop="cat_name">
@@ -37,7 +37,7 @@
       </template>
       <!-- 按钮区域 -->
       <template v-slot:footer>
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
+        <el-button @click="beforeClose" size="small">取 消</el-button>
         <el-button type="primary" @click="submit" size="small">确 定</el-button>
       </template>
     </el-dialog>
@@ -82,9 +82,14 @@ export default {
     }
   },
   methods: {
-    beforeClose() { this.dialogVisible = false },
+    // 关闭对话框
+    beforeClose() {
+      this.dialogVisible = false
+      this.$refs.addCateFromRef.resetFields()
+    },
+    // 提交新分类
     submit() {
-      this.$refs.cateFormRef.validate(valid => {
+      this.$refs.addCateFromRef.validate(valid => {
         if (valid) {
           // 获得父级分类
           let parentCate = this.optionList.filter(item => {
@@ -92,9 +97,10 @@ export default {
           })
           // 设置新分类等级
           this.newCate.cat_level = parentCate[0].cat_level + 1
-
-          this.$emit('submit', this.newCate)
-          this.dialogVisible = false
+          // 触发提交事件
+          const cateCopy = { ...this.newCate }
+          this.$emit('submit', cateCopy)
+          this.beforeClose()
         } else {
           this.$message.error('请输入正确内容')
         }
@@ -105,7 +111,8 @@ export default {
 </script>
 
 <style scoped>
-.add-cate-but {
+.add-cate-btn {
   display: inline-block;
+  padding: 10px 0px;
 }
 </style>

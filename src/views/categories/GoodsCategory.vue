@@ -10,7 +10,7 @@
     <el-card>
     <!-- 添加分类按钮 -->
     <div>
-      <add-category-button :option-list="cateSelectList"></add-category-button>
+      <add-category-button :option-list="cateSelectList" @submit="addCate"></add-category-button>
     </div>
     <!-- 分类列表 -->
       <cate-list :cate-list="cateList"></cate-list>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getCategroiesList } from '@/network/categories'
+import { getCategroiesList, addNewCate } from '@/network/categories'
 import { UPDATE_CATE_LIST } from '@/store/mutation.type'
 
 import CateList from './children/CateList'
@@ -73,6 +73,16 @@ export default {
       console.log(re)
       if (re.meta.status !== 200) return this.$message.error('re.meta.msg')
       this.$store.commit(UPDATE_CATE_LIST, re.data)
+    },
+
+    // 添加新分类
+    async addCate(newCate) {
+      const { data: re } = await addNewCate(newCate)
+      console.log(re)
+      if (re.meta.status !== 201) return this.$message.error(re.meta.msg)
+      this.$message.success('添加成功！')
+      // 刷新分类列表
+      this.getCategoriesList()
     }
   }
 
