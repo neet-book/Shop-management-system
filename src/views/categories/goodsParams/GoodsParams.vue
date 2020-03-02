@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import CateSelect from './CateSelect'
-import ParamsTabs from './ParamsTabs'
+import CateSelect from './children/CateSelect'
+import ParamsTabs from './children/ParamsTabs'
 
 import { UPDATE_CATE_LIST } from '@/store/mutation.type'
-import { getCategroiesList } from '@/network/goodsCate'
+import { getCategroiesList } from '@/network/goods_cate'
 
 export default {
   name: 'GoodsParams',

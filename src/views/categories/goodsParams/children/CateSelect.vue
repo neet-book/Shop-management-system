@@ -4,7 +4,7 @@
       :options="cateList"
       :props="optionProp"
       @change="changeId"
-      v-model="cateId"
+      v-model="currentId"
       clearable
       filterable
     ></el-cascader>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { VOID_SELECT } from '@/common/const'
+
 export default {
   name: 'CateSelect',
   data() {
@@ -22,8 +24,8 @@ export default {
         value: 'cat_id',
         label: 'cat_name'
       },
-      cateId: '',
-      preSelect: ''
+      currentId: [],
+      preId: []
     }
   },
   computed: {
@@ -35,18 +37,26 @@ export default {
   methods: {
     // 触发选择分类事件
     changeId(keys) {
-      console.log(keys)
-      if (keys?.length !== 3 && keys?.length !== 0) {
-        // 选择的不是三级分类则还原选项
-        this.cateId = this.preSelect
+      // 选择的不是三级分类则还原选项
+      if (keys?.length !== 3 && keys?.length !== VOID_SELECT) {
+        this.currentId = this.preId
+        console.log(this.currentId)
         this.$message.info('请选择三级分类')
         return
       }
 
-      if (keys !== undefined) {
-        // 保存之前的选项
-        this.preSelect = this.cateId[2]
-        this.$emit('select-change', keys[2])
+      if (keys?.length === 3) {
+        console.log(keys)
+        // 保存之前的选项,用于还原选项
+        this.preId = this.currentId
+        this.currentId = keys
+        this.$emit('select-change', keys[keys.length - 1])
+      }
+      // 当选项被清空时
+      if (keys?.length === VOID_SELECT) {
+        console.log(this.currentId)
+        this.preId = []
+        this.$emit('select-change', VOID_SELECT)
       }
     }
   }

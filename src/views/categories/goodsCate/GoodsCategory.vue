@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getCategroiesList, addNewCate, deleteCate, editCate } from '@/network/goodsCate'
+import { getCategroiesList, addNewCate, deleteCate, editCate } from '@/network/goods_cate'
 import { UPDATE_CATE_LIST } from '@/store/mutation.type'
 
 import CateList from './children/CateList'
