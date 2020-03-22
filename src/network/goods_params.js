@@ -8,3 +8,13 @@ export function getGoodsParams(id, type) {
     }
   })
 }
+
+export function addNewParams (id, type, params) {
+  return requestAUZ(`categories/${id}/attributes`, {
+    method: 'post',
+    data: {
+      attr_name: params,
+      attr_sel: type
+    }
+  })
+}

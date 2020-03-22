@@ -4,12 +4,14 @@
       <!-- 动态参数标签页 -->
       <el-tab-pane label="动态参数" name="many">
       <!-- 添加参数按钮 -->
+      <add-params-button type="many" :disabled="isDisabled" :cateId="cateId" @submit="getGoodsParams"></add-params-button>
       <!-- 动态参数列表 -->
       <many-params-table :many-params="manyParams"></many-params-table>
       </el-tab-pane>
       <!-- 静态参数标签页 -->
-      <el-tab-pane label="静态属性" name="only">
+      <el-tab-pane label="静态属性" name="only" :cateId="cateId">
       <!-- 添加参数按钮 -->
+      <add-params-button type="only" :disabled="isDisabled" :cateId="cateId" @submit="getGoodsParams"></add-params-button>
       <!-- 动态参数列表 -->
       </el-tab-pane>
     </el-tabs>
@@ -18,12 +20,15 @@
 
 <script>
 import ManyParamsTable from './ManyParamsTab/ManyParamsTable'
+import AddParamsButton from 'components/content/buttons/goodsParamsButton/AddParamsButton'
+
 import { getGoodsParams } from '@/network/goods_params'
 import { VOID_SELECT } from '@/common/const'
 
 export default {
   name: 'ParamsTabs',
   components: {
+    AddParamsButton,
     ManyParamsTable
   },
   data() {
@@ -38,7 +43,7 @@ export default {
   },
   computed: {
     isDisabled() {
-      return !(this.cateId === VOID_SELECT)
+      return this.cateId === VOID_SELECT
     }
   },
   methods: {
